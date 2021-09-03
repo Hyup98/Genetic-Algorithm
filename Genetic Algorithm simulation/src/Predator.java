@@ -7,8 +7,7 @@ public class Predator {
     private final int mapWidth = 50;
     private final int mapHight = 50;
     //개체 크기
-    private final int hight = 2;
-    private final int width = 2;
+    private final int radius = 2;
 
     public Predator() {
         this.x = (int) (Math.random() * mapWidth);
@@ -25,5 +24,9 @@ public class Predator {
 
     public int getX() {
         return x;
+    }
+
+    public int getRadius() {
+        return radius;
     }
 }

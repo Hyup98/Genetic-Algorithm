@@ -2,12 +2,8 @@ public class Prey {
     //개체 위치
     private int x;
     private int y;
-    //개체 크기
     private final int mapWidth = 50;
     private final int mapHight = 50;
-
-    private final int initObjectHight = 5;
-    private final int initObjectWidth = 5;
     private Gene gene;
 
     //자식 번식시 사용하는 생성자
@@ -19,8 +15,6 @@ public class Prey {
 
     //첫 Prey생성시 사용
     public Prey() {
-        this.x = initObjectWidth;
-        this.y = initObjectHight;
         this.x = (int) (Math.random() * mapWidth);
         this.y = (int) (Math.random() * mapHight);
         this.gene = new Gene();
@@ -40,5 +34,9 @@ public class Prey {
 
     public Prey ReproducebySelf() {
         return new Prey(x,y,gene.Genetic());
+    }
+
+    public int getRadius() {
+        return gene.getRadius();
     }
 }
