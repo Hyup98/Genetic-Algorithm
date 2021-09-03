@@ -21,6 +21,7 @@ public class Gene {
 
     //자기 유전자를 바탕으로 자식 유전자 생성 ->돌연변이 등등 고려
     public Gene Genetic() {
+        //어떻게 할지 잘 생각해보자
         return new Gene();
     }
 
