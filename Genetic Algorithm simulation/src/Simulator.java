@@ -41,7 +41,6 @@ public class Simulator {
         for(int i = 0; i < predators.size(); i++) {
             predators.get(i).Move();
             for(int j = 0; j < preys.size(); j++) {
-                if()
             }
         }
         //
