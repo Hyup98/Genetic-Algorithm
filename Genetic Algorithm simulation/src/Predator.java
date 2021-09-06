@@ -1,4 +1,3 @@
-
 public class Predator {
     //개체 위치
     private int x;
