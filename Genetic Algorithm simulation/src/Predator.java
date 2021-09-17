@@ -1,7 +1,7 @@
 public class Predator {
     //개체 위치
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     //시뮬레이션 맵 크기
     private final int mapWidth = 50;
     private final int mapHight = 50;
@@ -9,19 +9,22 @@ public class Predator {
     private final int radius = 2;
 
     public Predator() {
-        this.x = (int) (Math.random() * mapWidth);
-        this.y = (int) (Math.random() * mapHight);
+        this.x = (double) (Math.random() * mapWidth);
+        this.y = (double) (Math.random() * mapHight);
     }
 
     public void Move() {
-        //움직임 알고리즘에 의해 작성
+        double random = (Math.random() * 359);
+        random = Math.toRadians(random);
+        x = x + 10 * Math.cos(random);
+        y = y + 10 * Math.sin(random);
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 

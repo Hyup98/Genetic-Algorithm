@@ -1,13 +1,13 @@
 public class Prey {
     //개체 위치
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private final int mapWidth = 50;
     private final int mapHight = 50;
     private Gene gene;
 
     //자식 번식시 사용하는 생성자
-    public Prey(int x, int y, Gene gene) {
+    public Prey(double x, double y, Gene gene) {
         this.x = x;
         this.y = y;
         this.gene = gene;
@@ -21,14 +21,20 @@ public class Prey {
     }
 
     public void Move() {
-        //유전정보에 따라 움직인다.
+        //물체가 바라보는 방향
+        double random = (Math.random() * 359);
+        random = Math.toRadians(random);
+        x = x + gene.getSpeed() * Math.cos(random);
+        y = y + gene.getSpeed() * Math.sin(random);
+
+
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 

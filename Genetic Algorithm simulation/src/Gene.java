@@ -5,7 +5,6 @@ public class Gene {
     //onewMove가 호출 시 move함수 호출 전 휴식 기간
     private final int activity;
     //이동시 직진하는 빈도 수->n번 직진 후 방향수정
-    private final int straightness;
     private final double rateOfMtation = 0.01;
 
     //Prey개체가 번식시 사용
@@ -18,7 +17,7 @@ public class Gene {
 
     //Prey첫 개체 초기화시 사용
     public Gene() {
-        this.speed = 10;
+        this.speed = (int) ((Math.random() * (10 - 1)) + 1);
         this.radius = 10;
         this.activity = 10;
     }
@@ -31,5 +30,9 @@ public class Gene {
 
     public int getRadius() {
         return radius;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 }
