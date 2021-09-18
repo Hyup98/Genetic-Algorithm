@@ -1,28 +1,25 @@
 public class Gene {
-    private final int speed;
-    //개체 크기
+    private final double speed;
+    //媛쒖껜 �겕湲�
     private final int radius;
-    //onewMove가 호출 시 move함수 호출 전 휴식 기간
     private final int activity;
-    //이동시 직진하는 빈도 수->n번 직진 후 방향수정
-    private final double rateOfMtation = 0.01;
 
-    //Prey개체가 번식시 사용
-    public Gene(int speed, int radius, int activity) {
-        this.activity = activity;
-        this.radius = radius;
+    //Prey媛쒖껜媛� 踰덉떇�떆 �궗�슜
+    public Gene(double speed, int radius, int activity) {
         this.speed = speed;
+        this.radius = radius;
+        this.activity = activity;
     }
 
 
-    //Prey첫 개체 초기화시 사용
+    //Prey泥� 媛쒖껜 珥덇린�솕�떆 �궗�슜
     public Gene() {
-        this.speed = (int) ((Math.random() * (10 - 1)) + 1);
+        this.speed = ((Math.random() * (2 - 0.1)) + 0.1);
         this.radius = 10;
         this.activity = 10;
     }
 
-    //자기 유전자를 바탕으로 자식 유전자 생성 ->돌연변이 등등 고려
+
     public Gene Genetic() {
 
         return new Gene();
@@ -32,7 +29,7 @@ public class Gene {
         return radius;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 }

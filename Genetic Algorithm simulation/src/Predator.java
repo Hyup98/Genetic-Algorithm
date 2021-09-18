@@ -1,23 +1,81 @@
+import java.awt.*;
+
 public class Predator {
-    //개체 위치
+
     private double x;
     private double y;
-    //시뮬레이션 맵 크기
+    private double lastDirection;
+    private boolean count;
+    private static final int safeZoneRadius = 100;
+    private static final int safeZoneX = 462;
+    private static final int safeZoneY = 340;
+
     private final int mapWidth = 50;
     private final int mapHight = 50;
-    //개체 크기
-    private final int radius = 2;
+
+    private final int radius = 10;
 
     public Predator() {
+        this.count = true;
         this.x = (double) (Math.random() * mapWidth);
         this.y = (double) (Math.random() * mapHight);
     }
-
+    public Predator(double x,double y) {
+        this.count = true;
+        this.x=x;
+        this.y=y;
+    }
     public void Move() {
-        double random = (Math.random() * 359);
-        random = Math.toRadians(random);
-        x = x + 10 * Math.cos(random);
-        y = y + 10 * Math.sin(random);
+        if(count == true) {
+            while(true) {
+                double random = (Math.random() * 359);
+                random = Math.toRadians(random);
+                lastDirection = random;
+                x += 0.3 * Math.cos(random);
+                y += 0.3 * Math.sin(random);
+                //개체가 맵을 벗어난 경우x
+                if(x > 25 && x < 1000 && y > 0 && y < 735)
+                {
+                    //개체가 안전지대에 있는 경우x
+                    double distanceFromSafe = (double) (Math.pow((x - safeZoneX), 2)
+                            + Math.pow((y - safeZoneY), 2));
+                    distanceFromSafe = Math.sqrt(distanceFromSafe);
+                    if (distanceFromSafe > safeZoneRadius - radius) {
+                        break;
+                    }
+                }
+
+            }
+            count = false;
+
+        }
+        else
+        {
+            x += 0.3 * Math.cos(lastDirection);
+            y += 0.3 * Math.sin(lastDirection);
+            double distanceFromSafe = (double) (Math.pow((x - safeZoneX), 2)
+                    + Math.pow((y - safeZoneY), 2));
+            distanceFromSafe = Math.sqrt(distanceFromSafe);
+
+            if(x < 25 || x > 1000 || y < 5 || y > 735 || distanceFromSafe < safeZoneRadius - radius)
+            {
+                while(true) {
+                    double random = (Math.random() * 359);
+                    random = Math.toRadians(random);
+                    lastDirection = random;
+                    x += 0.3 * Math.cos(random);
+                    y += 0.3 * Math.sin(random);
+                    distanceFromSafe = (double) (Math.pow((x - safeZoneX), 2)
+                            + Math.pow((y - safeZoneY), 2));
+                    distanceFromSafe = Math.sqrt(distanceFromSafe);
+                    if(x > 25 && x < 1000 && y > 0 && y < 735 && distanceFromSafe > safeZoneRadius - radius)
+                    {
+                        break;
+                    }
+                }
+                count = false;
+            }
+        }
     }
 
     public double getY() {
