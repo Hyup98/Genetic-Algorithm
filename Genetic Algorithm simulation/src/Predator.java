@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class Predator {
 
     private double x;
@@ -33,10 +31,10 @@ public class Predator {
                 lastDirection = random;
                 x += 0.3 * Math.cos(random);
                 y += 0.3 * Math.sin(random);
-                //개체가 맵을 벗어난 경우x
+                //媛쒖껜媛� 留듭쓣 踰쀬뼱�궃 寃쎌슦x
                 if(x > 25 && x < 1000 && y > 0 && y < 735)
                 {
-                    //개체가 안전지대에 있는 경우x
+                    //媛쒖껜媛� �븞�쟾吏����뿉 �엳�뒗 寃쎌슦x
                     double distanceFromSafe = (double) (Math.pow((x - safeZoneX), 2)
                             + Math.pow((y - safeZoneY), 2));
                     distanceFromSafe = Math.sqrt(distanceFromSafe);

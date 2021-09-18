@@ -39,14 +39,14 @@ public class Prey {
                 lastDirection = random;
                 x += gene.getSpeed() * Math.cos(random);
                 y += gene.getSpeed() * Math.sin(random);
-                //개체가 맵을 벗어난 경우x
+
+                //맵을 벗어나지 않는 경우
                 if(x > 25 && x < 1000 && y > 0 && y < 735) {
                     break;
                 }
 
             }
             count = false;
-
         }
         else
         {
