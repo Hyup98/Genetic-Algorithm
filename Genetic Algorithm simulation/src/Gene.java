@@ -1,28 +1,40 @@
 public class Gene {
     private final double speed;
-    //媛쒖껜 �겕湲�
+
     private final int radius;
     private final int activity;
 
-    //Prey媛쒖껜媛� 踰덉떇�떆 �궗�슜
-    public Gene(double speed, int radius, int activity) {
+
+    public Gene(double speed) {
         this.speed = speed;
-        this.radius = radius;
-        this.activity = activity;
+        this.radius = 10;
+        this.activity = 10;
     }
 
 
-    //Prey泥� 媛쒖껜 珥덇린�솕�떆 �궗�슜
+
     public Gene() {
-        this.speed = ((Math.random() * (2 - 0.1)) + 0.1);
+        this.speed = ((Math.random() * (2 - 0.05)) + 0.05);
         this.radius = 10;
         this.activity = 10;
     }
 
 
     public Gene Genetic() {
+        int tem =  (int)(Math.random() * 10000);
+        if(tem == 1)
+        {
+            int flag = (int)(Math.random() * 100);
+            if(flag % 2 == 0)
+            {
+                double temSpeed = Math.max(0.05, this.speed + 0.1);
+                return new Gene(temSpeed);
+            }
+            double temSpeed = Math.max(0.05, this.speed - 0.1);
+            return new Gene(temSpeed);
 
-        return new Gene();
+        }
+        return new Gene(speed);
     }
 
     public int getRadius() {

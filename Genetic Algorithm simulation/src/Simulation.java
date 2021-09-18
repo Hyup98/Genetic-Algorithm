@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Main extends JFrame {
+public class Simulation extends JFrame {
 
 	Image buffImg;
 	Graphics buffG;
@@ -24,10 +24,10 @@ public class Main extends JFrame {
 	private boolean runScreen = false;
 
 	public static void main(String[] args) {
-		new Main();
+		new Simulation();
 	}
 
-	Main() {
+	Simulation() {
 		JFrame frame= new JFrame();
 		frame.setTitle("Controller");
 		frame.setSize(384,mapHeight);
