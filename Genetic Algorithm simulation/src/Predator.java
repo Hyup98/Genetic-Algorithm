@@ -15,14 +15,14 @@ public class Predator {
 
     public Predator() {
         this.count = true;
-        this.x = (double) (Math.random() * mapWidth);
-        this.y = (double) (Math.random() * mapHight);
     }
+
     public Predator(double x,double y) {
         this.count = true;
         this.x=x;
         this.y=y;
     }
+
     public void Move() {
         if(count == true) {
             while(true) {
@@ -86,5 +86,13 @@ public class Predator {
 
     public int getRadius() {
         return radius;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }

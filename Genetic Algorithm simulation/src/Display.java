@@ -19,16 +19,17 @@ public class Display extends JFrame {
 	private int preySize = 30;
 	private int predatorSize = 4;
 	private int callMoveCount;
-	private ArrayList<Prey> preys = new ArrayList<>();
-	private ArrayList<Predator> predators = new ArrayList<>();
+	//private ArrayList<Prey> preys = new ArrayList<>();
+	Prey[] preys;
+	//private ArrayList<Predator> predators = new ArrayList<>();
+	Predator[] predators;
 	private ArrayList<ArrayList<Integer>> map = new ArrayList<>();
 	private boolean runScreen = false;
+
+
 	public static void main(String[] args) {
 		new Display();
 	}
-	//1세대 지남
-	//속도 조작 
-	//기타 사항 조
 
 	Display() {
 		JFrame controller= new JFrame();
@@ -49,7 +50,27 @@ public class Display extends JFrame {
 		setSize(mapWidth, mapHeight);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+
 		genrationCount = 0;
+		predators = new Predator[predatorSize];
+		double x, y;
+		for (int i = 0 ; i < predatorSize; i++) {
+			predators[i] = new Predator();
+			x = (Math.random() * (mapWidth - 30)) + 10;
+			y = (Math.random() * (mapHeight - 60)) + 30;
+			predators[i].setX(x);
+			predators[i].setY(y);
+		}
+		preys = new Prey[500];
+
+		for (int j = 0 ; j < preySize; j++) {
+			preys[j] = new Prey();
+			x = (Math.random() * (mapWidth - 30)) + 10;
+			y = (Math.random() * (mapHeight - 60)) + 30;
+			preys[j].setX(x);
+			preys[j].setY(y);
+		}
+
 	}
 	
 	@Override
@@ -99,6 +120,7 @@ public class Display extends JFrame {
 		double x;
 		double y;
 		//처음 개체 초기화
+		/*
 		if(runScreen == false) {
 			for (int i = 0; i < preySize; i++) {
 				x = (int) (Math.random() * (mapWidth - 30)) + 10;
@@ -106,36 +128,44 @@ public class Display extends JFrame {
 				preys.add(new Prey(x, y));
 			}
 			for (int i = 0; i < predatorSize; i++) {
-				x = (int) (Math.random() * (mapWidth - 30)) + 10;
-				y = (int) (Math.random() * (mapHeight - 60)) + 30;
-				predators.add(new Predator(x, y));
+				x = (Math.random() * (mapWidth - 30)) + 10;
+				y = (Math.random() * (mapHeight - 60)) + 30;
+				predators[i].setX(x);
+				predators[i].setY(y);
 			}
 		}
+		*/
 
 		//먹이 1move 호출 + 그리기
-		for(int i = 0 ; i <preys.size(); i++)
+		for(int i = 0 ; i < preySize; i++)
 		{
-			preys.get(i).Move();
-			x = preys.get(i).getX();
-			y = preys.get(i).getY();
+			if (preys[i] == null) {
+				preySize = preySize - 1;
+				break;
+			}
+			preys[i].Move();
+			x = preys[i].getX();
+			y = preys[i].getY();
 			buffG.setColor(Color.BLACK);
 			buffG.fillOval((int)x, (int)y, 20, 20);
 		}
 
 		//포식자 1move 호출 + 피식자 번식 후 그리기
 		for (int i = 0; i < predatorSize; i++) {
-			predators.get(i).Move();
-			x = predators.get(i).getX();
-			y = predators.get(i).getY();
+			predators[i].Move();
+			x = predators[i].getX();
+			y = predators[i].getY();
 			
-			for (int j = 0; j < preys.size(); j++) {
-						distance = (double) (Math.pow((predators.get(i).getX() - preys.get(j).getX()),2)
-										   + Math.pow((predators.get(i).getY() - preys.get(j).getY()),2));
+			for (int j = 0; j < preySize; j++) {
+						distance = (double) (Math.pow((predators[i].getX() - preys[j].getX()),2)
+										   + Math.pow((predators[i].getY() - preys[j].getY()),2));
 						distance = Math.sqrt(distance);
 
-				if (distance <= preys.get(j).getRadius() + predators.get(i).getRadius()) { 
+				if (distance <= preys[j].getRadius() + predators[i].getRadius()) {
 						System.out.println("(i : "+ i +", j : "+ j +")");
-						preys.remove(j);
+						preys[j] = preys[preySize - 1];
+						preys[preySize - 1] = null;
+						j--;
 						preySize--;						
 				}
 			}
@@ -146,10 +176,11 @@ public class Display extends JFrame {
 
 
 		if(genrationCount % 5000 == 0) {
-			int temNum = preys.size();
+			int temNum = preySize;
 			for (int t = 0; t < temNum ; t++) {
-				Prey tem = preys.get(t).ReproducebySelf();
-				preys.add(tem);
+				Prey tem = preys[t].ReproducebySelf();
+				preys[preySize - 1] = tem;
+				preySize++;
 				buffG.setColor(Color.BLACK);
 				buffG.fillOval((int) tem.getX(), (int) tem.getY(), 20, 20);
 			}
