@@ -1,13 +1,13 @@
 public class Gene {
     private final double speed;
 
-    private final int radius;
+    private final double radius;
     private final int activity;
 
 
-    public Gene(double speed) {
+    public Gene(double speed, double radius) {
         this.speed = speed;
-        this.radius = 10;
+        this.radius = radius;
         this.activity = 10;
     }
 
@@ -22,22 +22,24 @@ public class Gene {
 
     public Gene Genetic() {
         int tem =  (int)(Math.random() * 10000);
-        if(tem == 1)
+        if(tem != 1)
         {
             int flag = (int)(Math.random() * 100);
             if(flag % 2 == 0)
             {
                 double temSpeed = Math.max(0.05, this.speed + 0.1);
-                return new Gene(temSpeed);
+                double temRadius = Math.max(0.05, this.radius + 5);
+                return new Gene(temSpeed, temRadius);
             }
             double temSpeed = Math.max(0.05, this.speed - 0.1);
-            return new Gene(temSpeed);
+            double temRadius = Math.max(0.05, this.radius + 2);
+            return new Gene(temSpeed, temRadius);
 
         }
-        return new Gene(speed);
+        return new Gene(speed, this.radius);
     }
 
-    public int getRadius() {
+    public double getRadius() {
         return radius;
     }
 

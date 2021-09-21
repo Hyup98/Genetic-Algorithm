@@ -80,13 +80,12 @@ public class Prey {
         return y;
     }
 
-    public Prey ReproducebySelf() {
+    public Prey reproduceBySelf() {
         return new Prey(x,y,gene.Genetic());
     }
 
-    public int getRadius() {
-        //return gene.getRadius();
-    	return 10;
+    public double getRadius() {
+    	return gene.getRadius();
     }
 
     public void setY(double y) {
