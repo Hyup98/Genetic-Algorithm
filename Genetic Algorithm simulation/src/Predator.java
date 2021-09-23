@@ -3,77 +3,60 @@ public class Predator {
     private double x;
     private double y;
     private double lastDirection;
-    private boolean count;
+    private int count;
+    private final int activity = 1000;
     private static final int safeZoneRadius = 100;
     private static final int safeZoneX = 462;
     private static final int safeZoneY = 340;
-
+    private final double speed = 0.5;
     private final int mapWidth = 50;
     private final int mapHight = 50;
 
     private final int radius = 10;
 
     public Predator() {
-        this.count = true;
+        this.count = 1;
     }
 
     public Predator(double x,double y) {
-        this.count = true;
+        this.count = 1;
         this.x=x;
         this.y=y;
     }
 
     public void Move() {
-        if(count == true) {
-            while(true) {
-                double random = (Math.random() * 359);
-                random = Math.toRadians(random);
-                lastDirection = random;
-                x += 0.3 * Math.cos(random);
-                y += 0.3 * Math.sin(random);
-                //媛쒖껜媛� 留듭쓣 踰쀬뼱�궃 寃쎌슦x
-                if(x > 25 && x < 1000 && y > 0 && y < 735)
-                {
-                    //媛쒖껜媛� �븞�쟾吏����뿉 �엳�뒗 寃쎌슦x
-                    double distanceFromSafe = (double) (Math.pow((x - safeZoneX), 2)
-                            + Math.pow((y - safeZoneY), 2));
-                    distanceFromSafe = Math.sqrt(distanceFromSafe);
-                    if (distanceFromSafe > safeZoneRadius - radius) {
-                        break;
-                    }
-                }
-
-            }
-            count = false;
-
+        System.out.print("사냥 시작\n");
+        double temX;
+        double temY;
+        double temDic = lastDirection;
+        //방향 수정
+        if(activity % count == 0) {
+            double random = (Math.random() * 359);
+            temDic = Math.toRadians(random);
         }
-        else
-        {
-            x += 0.3 * Math.cos(lastDirection);
-            y += 0.3 * Math.sin(lastDirection);
-            double distanceFromSafe = (double) (Math.pow((x - safeZoneX), 2)
-                    + Math.pow((y - safeZoneY), 2));
+        temX = x + speed * Math.cos(temDic);
+        temY = y + speed * Math.sin(temDic);
+        while (true) {
+            System.out.print("사냥 방향 찾기\n");
+            double distanceFromSafe = (double) (Math.pow((temX - safeZoneX), 2) + Math.pow((temY - safeZoneY), 2));
             distanceFromSafe = Math.sqrt(distanceFromSafe);
-
-            if(x < 25 || x > 1000 || y < 5 || y > 735 || distanceFromSafe < safeZoneRadius - radius)
-            {
-                while(true) {
-                    double random = (Math.random() * 359);
-                    random = Math.toRadians(random);
-                    lastDirection = random;
-                    x += 0.3 * Math.cos(random);
-                    y += 0.3 * Math.sin(random);
-                    distanceFromSafe = (double) (Math.pow((x - safeZoneX), 2)
-                            + Math.pow((y - safeZoneY), 2));
-                    distanceFromSafe = Math.sqrt(distanceFromSafe);
-                    if(x > 25 && x < 1000 && y > 0 && y < 735 && distanceFromSafe > safeZoneRadius - radius)
-                    {
-                        break;
-                    }
-                }
-                count = false;
+            if(temX > 10 && temX < 1250 && temY > 30 && temY < 790 && distanceFromSafe > safeZoneRadius + radius) {
+                break;
             }
+
+            double random = (Math.random() * 359);
+            temDic = Math.toRadians(random);
+            temX = x + speed * Math.cos(temDic);
+            temY = y + speed * Math.sin(temDic);
         }
+        count++;
+        if(count < 0) {
+            count = 1;
+        }
+        x = temX;
+        y = temY;
+        lastDirection = temDic;
+        System.out.print("사냥 끝남\n");
     }
 
     public double getY() {

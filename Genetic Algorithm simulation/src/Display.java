@@ -17,11 +17,10 @@ public class Display extends JFrame {
 	private int preySize = 30;
 	private int predatorSize = 4;
 	private int callMoveCount;
-	//private ArrayList<Prey> preys = new ArrayList<>();
-	Prey[] preys;
-	//private ArrayList<Predator> predators = new ArrayList<>();
-	Predator[] predators;
-	private ArrayList<ArrayList<Integer>> map = new ArrayList<>();
+	private ArrayList<Prey> preys = new ArrayList<>();
+	//Prey[] preys;
+	private ArrayList<Predator> predators = new ArrayList<>();
+	//Predator[] predators;
 	private boolean runScreen = false;
 
 	public void start() {
@@ -55,24 +54,19 @@ public class Display extends JFrame {
 		setVisible(true);
 
 		genrationCount = 1;
-		predators = new Predator[predatorSize];
+
 
 		double x, y;
 		for (int i = 0 ; i < predatorSize; i++) {
-			predators[i] = new Predator();
 			x = (Math.random() * (mapWidth - 30)) + 10;
 			y = (Math.random() * (mapHeight - 60)) + 30;
-			predators[i].setX(x);
-			predators[i].setY(y);
+			predators.add(new Predator(x,y));
 		}
-		preys = new Prey[500];
 
 		for (int j = 0 ; j < preySize; j++) {
-			preys[j] = new Prey();
 			x = (Math.random() * (mapWidth - 30)) + 10;
 			y = (Math.random() * (mapHeight - 60)) + 30;
-			preys[j].setX(x);
-			preys[j].setY(y);
+			preys.add(new Prey(x,y));
 		}
 
 	}
@@ -100,54 +94,33 @@ public class Display extends JFrame {
 
 		double x;
 		double y;
-		//처음 개체 초기화
-		/*
-		if(runScreen == false) {
-			for (int i = 0; i < preySize; i++) {
-				x = (int) (Math.random() * (mapWidth - 30)) + 10;
-				y = (int) (Math.random() * (mapHeight - 60)) + 30;
-				preys.add(new Prey(x, y));
-			}
-			for (int i = 0; i < predatorSize; i++) {
-				x = (Math.random() * (mapWidth - 30)) + 10;
-				y = (Math.random() * (mapHeight - 60)) + 30;
-				predators[i].setX(x);
-				predators[i].setY(y);
-			}
-		}
-		*/
 
 		//먹이 1move 호출 + 그리기
 		for(int i = 0 ; i < preySize; i++)
 		{
-			if (preys[i] == null) {
-				preySize = preySize - 1;
-				break;
-			}
-			preys[i].Move();
-			x = preys[i].getX();
-			y = preys[i].getY();
+
+			preys.get(i).Move();
+			x = preys.get(i).getX();
+			y = preys.get(i).getY();
 			buffG.setColor(Color.BLACK);
-			buffG.fillOval((int)x, (int)y, (int)preys[i].getRadius(), (int)preys[i].getRadius());
+			buffG.fillOval((int)x, (int)y, (int)preys.get(i).getRadius(), (int)preys.get(i).getRadius());
 		}
 
 
 		//포식자 1move 호출 + 피식자 번식 후 그리기
 		for (int i = 0; i < predatorSize; i++) {
-			predators[i].Move();
-			x = predators[i].getX();
-			y = predators[i].getY();
+			predators.get(i).Move();
+			x = predators.get(i).getX();
+			y = predators.get(i).getY();
 			
 			for (int j = 0; j < preySize; j++) {
-						distance = (double) (Math.pow((predators[i].getX() - preys[j].getX()),2)
-										   + Math.pow((predators[i].getY() - preys[j].getY()),2));
+						distance = (double) (Math.pow((predators.get(i).getX() - preys.get(j).getX()),2)
+										   + Math.pow((predators.get(i).getY() - preys.get(j).getY()),2));
 						distance = Math.sqrt(distance);
 
-				if (distance <= preys[j].getRadius() + predators[i].getRadius()) {
+				if (distance <= preys.get(j).getRadius() + predators.get(i).getRadius()) {
 						//System.out.println("(i : "+ i +", j : "+ j +")");
-						preys[j] = preys[preySize - 1];
-						preys[preySize - 1] = null;
-						j--;
+						preys.remove(j);
 						preySize--;						
 				}
 			}
@@ -160,8 +133,8 @@ public class Display extends JFrame {
 		if(genrationCount % 5000 == 0) {
 			int temNum = preySize;
 			for (int t = 0; t < temNum ; t++) {
-				Prey tem = preys[t].reproduceBySelf();
-				preys[preySize] = tem;
+				Prey tem = preys.get(t).reproduceBySelf();
+				preys.add(tem);
 				//System.out.print("자식 생성");
 				preySize++;
 				buffG.setColor(Color.BLACK);
