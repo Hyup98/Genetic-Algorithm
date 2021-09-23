@@ -21,20 +21,30 @@ public class Gene {
 
 
     public Gene Genetic() {
-        int tem =  (int)(Math.random() * 10000);
-        if(tem == 1)
+        int tem =  (int)(Math.random() * 100);
+        if(tem == 1 || tem == 2 || tem == 3)
         {
             int flag = (int)(Math.random() * 100);
             if(flag % 2 == 0)
             {
-                double temSpeed = Math.max(0.05, this.speed + 0.1);
-                double temRadius = Math.max(0.05, this.radius + 5);
-                int temActivity = Math.min(1,this.activity + 1);
+                double temSpeed = this.speed + 0.1;
+                double temRadius = this.radius + 5;
+                int temActivity = this.activity + 1;
                 return new Gene(temSpeed, temRadius,temActivity);
             }
-            double temSpeed = Math.max(0.05, this.speed - 0.1);
-            double temRadius = Math.max(0.05, this.radius - 5);
-            int temActivity = Math.min(1,this.activity - 1);
+            double temSpeed = this.speed - 0.1;
+            double temRadius = this.radius - 5;
+            int temActivity = this.activity - 1;
+            if(temRadius < 0.1) {
+                temRadius = 0.1;
+            }
+            if (temSpeed < 0.05) {
+                temSpeed = 0.05;
+            }
+            if (temActivity < 1) {
+                temActivity = 1;
+            }
+
             return new Gene(temSpeed, temRadius, temActivity);
 
         }
