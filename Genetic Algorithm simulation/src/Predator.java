@@ -8,7 +8,7 @@ public class Predator {
     private static final int safeZoneRadius = 100;
     private static final int safeZoneX = 462;
     private static final int safeZoneY = 340;
-    private final double speed = 0.5;
+    private final double speed = 0.8;
     private final int mapWidth = 50;
     private final int mapHight = 50;
 
