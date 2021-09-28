@@ -4,9 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Lancher extends JFrame {
-	
-	String ItemName[] = { "  Genetic Algorithm Program" };
-	String ItemText[]= {"asdf\nasdfasdf\rasdf"};
+
+	String ItemName[] = { " Genetic Algorithm Program" };
+	String ItemText[]= {"asdf\nasdfasdfasdf"};
 	int selectedIndex=-1;
 	JList list1;
 	JTextArea area1;
@@ -26,7 +26,7 @@ public class Lancher extends JFrame {
 
 		list1 = new JList(ItemName);
 		list1.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		list1.setFont(new Font("°íµñÃ¼", Font.HANGING_BASELINE, 15));
+		list1.setFont(new Font("ê³ ë”•ì²´", Font.HANGING_BASELINE, 15));
 		list1.setFixedCellHeight(50);
 		list1.setFixedCellWidth(50);
 		JScrollPane list1_scroll = new JScrollPane(list1);
@@ -35,24 +35,25 @@ public class Lancher extends JFrame {
 		list1_scroll.setBounds(25, 30, 250, 425);
 
 		area1 = new JTextArea(" ", 30, 30);
+		area1.setFont(new Font("ê³ ë”•ì²´", Font.BOLD, 20));
 		JScrollPane area1_scroll = new JScrollPane(area1);
 		c.add(area1_scroll);
 		area1_scroll.setBounds(280, 30, 380, 425);
 
-		JButton bt1 = new JButton("¼±ÅÃ");
-		bt1.setFont(new Font("°íµñÃ¼", Font.BOLD, 20));
+		JButton bt1 = new JButton("Select");
+		bt1.setFont(new Font("ê³ ë”•ì²´", Font.BOLD, 15));
 		c.add(bt1);
 		bt1.addActionListener(new bt1ActionListener());
 		bt1.setBounds(225, 475, 90, 40);
-		
+
 		JButton bt2=new JButton("Quit");
-		bt2.setFont(new Font("°íµñÃ¼", Font.BOLD, 20));
+		bt2.setFont(new Font("ê³ ë”•ì²´", Font.BOLD, 15));
 		c.add(bt2);
 		bt2.addActionListener(new bt2ActionListener());
 		bt2.setBounds(350, 475, 90, 40);
 
 	}
-	
+
 	private class SelectionListener implements ListSelectionListener{
 		public void valueChanged(ListSelectionEvent e) {
 			selectedIndex = list1.getSelectedIndex();
@@ -63,12 +64,13 @@ public class Lancher extends JFrame {
 	private class bt1ActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			switch (selectedIndex) {
-			case 0:
-				new Display();
-				break;
-			default :
-				JOptionPane.showMessageDialog(null, "ÇÁ·Î±×·¥À» ¼±ÅÃÇØÁÖ½Ê½Ã¿À");
-				break;
+				case 0:
+					new Simulation();
+					dispose();
+					break;
+				default :
+					JOptionPane.showMessageDialog(null, "Select program");
+					break;
 			}
 		}
 	}

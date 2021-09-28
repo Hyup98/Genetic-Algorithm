@@ -43,15 +43,14 @@ public class Prey {
         double temX;
         double temY;
         double temDic = lastDirection;
-        if(count % gene.getActivity() == 0) {
+        if( count % gene.getActivity() == 0) {
             double random = (Math.random() * 359);
             temDic = Math.toRadians(random);
         }
         temX = x + gene.getSpeed() * Math.cos(temDic) * Controller.Acceleration;
         temY = y + gene.getSpeed() * Math.sin(temDic) * Controller.Acceleration;
         while (true) {
-            if(temX > 10 && temX < 1250 && temY > 30 && temY < 790)
-            {
+            if(temX > 10 && temX < 1250 && temY > 30 && temY < 790) {
                 break;
             }
             double random = (Math.random() * 359);
@@ -81,14 +80,14 @@ public class Prey {
         return new Prey(x,y,gene.Genetic(50));
     }
 
-    public double getRadius() {
-    	return gene.getRadius();
-    }
-
     public boolean isBreedingComplete() {
         if (countdescendent < 3) {
             return false;
         }
         return true;
+    }
+
+    public double getRadius() {
+        return gene.getRadius();
     }
 }

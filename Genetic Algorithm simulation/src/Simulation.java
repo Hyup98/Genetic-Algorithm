@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Display extends JFrame {
+public class Simulation extends JFrame {
 
 	Image buffImg;
 	Graphics buffG;
@@ -13,12 +13,12 @@ public class Display extends JFrame {
 	private int genrationCount;
 	private static final int mapWidth = 1280;
 	private static final int mapHeight = 820;
-	private static final int safeZoneRadius = 100;
+	private static final int safeZoneRadius = 150;
 	private static final int safeZoneX = mapWidth / 2 - safeZoneRadius / 2;
 	private static final int safeZoneY = mapHeight / 2 - safeZoneRadius / 2;
 	private int generation = 0;
-	private int preySize = 50;
-	private int predatorSize = 4;
+	private int preySize = 40;//50
+	private int predatorSize = 4;//4
 	private ArrayList<Prey> preys = new ArrayList<>();
 	private ArrayList<Predator> predators = new ArrayList<>();
 
@@ -29,16 +29,16 @@ public class Display extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Display().start();
+		new Simulation().start();
 	}
 
-	Display() {	
+	Simulation() {
 		this.setTitle("GeneticSimulation");
 		this.setSize(mapWidth, mapHeight);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
-		
+
 		new Controller();
 		arrangement();
 	}
@@ -71,7 +71,7 @@ public class Display extends JFrame {
 		buffG.clearRect(0, 0, mapWidth, mapHeight);
 		buffG.setColor(Color.GREEN);
 		buffG.fillOval(safeZoneX, safeZoneY, safeZoneRadius, safeZoneRadius);
-		
+
 		double x;
 		double y;
 		for (int i = 0; i < preySize; i++) {
@@ -89,10 +89,11 @@ public class Display extends JFrame {
 
 			for (int j = 0; j < preySize; j++) {
 				distance = (double) (Math.pow((predators.get(i).getX() - preys.get(j).getX()), 2)
-									+ Math.pow((predators.get(i).getY() - preys.get(j).getY()), 2));
+						+ Math.pow((predators.get(i).getY() - preys.get(j).getY()), 2));
 				distance = Math.sqrt(distance);
 
 				if (distance <= preys.get(j).getRadius() + predators.get(i).getRadius()) {
+					// System.out.println("(i : "+ i +", j : "+ j +")");
 					preys.remove(j);
 					preySize--;
 				}
@@ -125,9 +126,9 @@ public class Display extends JFrame {
 		}
 
 		buffG.setColor(Color.BLACK);
-		buffG.setFont(new Font("고딕체", Font.BOLD, 15));
+		buffG.setFont(new Font("怨좊뵓泥�", Font.BOLD, 15));
 		buffG.drawString("Generation : " + Integer.toString(generation), 20, 50);
-		buffG.drawString("남은 개체 수 : " + Integer.toString(preySize), 20,70);
+		buffG.drawString("number of preys : " + Integer.toString(preySize), 20,70);
 		g.drawImage(buffImg, 0, 0, this);
 		super.repaint();
 	}

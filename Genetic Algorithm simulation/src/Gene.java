@@ -17,6 +17,7 @@ public class Gene {
 
     public Gene Genetic(double mutationProbability) {
         double mutation = mutationProbability * 1000;
+
         double childSpeed = this.speed;
         int childActivity = this.activity;
         double childRadius = this.radius;
@@ -26,17 +27,16 @@ public class Gene {
         int tem =  (int)(Math.random() * 100000 + 1);
         if (tem < mutation) {
             probability = (int)(Math.random() * 10 + 1);
-            //활동성 증가
-            if (probability > 5) {
-                childActivity = this.activity + 5;
-            }
             //활동성 감소
+            if (probability > 5) {
+                childActivity = this.activity + (int)(Math.random() * 5 + 1);
+            }
+            //활동성 증가
             else {
-                childActivity = this.activity - 5;
+                childActivity = this.activity - (int)(Math.random() * 5 + 1);
                 if(childActivity < 0) {
                     childActivity = 1;
                 }
-
             }
         }
 
@@ -46,13 +46,13 @@ public class Gene {
             probability = (int)(Math.random() * 10 + 1);
             //속도 증가
             if (probability > 5) {
-                childSpeed = this.speed + 0.05;
+                childSpeed = this.speed + (Math.random() * 0.05 + 0.0001);
             }
             //속도 감소
             else {
-                childSpeed = this.speed - 0.05;
+                childSpeed = this.speed - (Math.random() * 0.05 + 0.0001);
                 if(childSpeed < 0) {
-                    childSpeed = 0.005;
+                    childSpeed = 0.0001;
                 }
             }
 
@@ -64,14 +64,14 @@ public class Gene {
             probability = (int)(Math.random() * 10 + 1);
             //모양 증가
             if (probability > 5) {
-                childRadius = this.radius + 5;
+                childRadius = this.radius + (int)(Math.random() * 3 + 1);
 
             }
             //모양 감소
             else {
-                childRadius = this.radius - 5;
+                childRadius = this.radius - (int)(Math.random() * 3 + 1);
                 if(childRadius < 0) {
-                    childRadius = 3;
+                    childRadius = 1;
                 }
             }
         }
