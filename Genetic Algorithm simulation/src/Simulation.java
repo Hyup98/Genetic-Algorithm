@@ -93,7 +93,6 @@ public class Simulation extends JFrame {
 				distance = Math.sqrt(distance);
 
 				if (distance <= preys.get(j).getRadius() + predators.get(i).getRadius()) {
-					// System.out.println("(i : "+ i +", j : "+ j +")");
 					preys.remove(j);
 					preySize--;
 				}

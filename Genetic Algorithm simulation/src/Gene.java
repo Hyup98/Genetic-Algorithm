@@ -29,13 +29,13 @@ public class Gene {
             probability = (int)(Math.random() * 10 + 1);
             //활동성 감소
             if (probability > 5) {
-                childActivity = this.activity + (int)(Math.random() * 5 + 1);
+                childActivity = this.activity + (int)(Math.random() * 2 + 1);
             }
             //활동성 증가
             else {
-                childActivity = this.activity - (int)(Math.random() * 5 + 1);
+                childActivity = this.activity - (int)(Math.random() * 2 + 1);
                 if(childActivity < 0) {
-                    childActivity = 1;
+                    childActivity = 3;
                 }
             }
         }
