@@ -4,10 +4,12 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class Controller extends JFrame {
-	private static final int mapWidth = 1280;
-	private static final int mapHeight = 820;
+	Simulation simulation;
+	private final int mapWidth = 1280;
+	private final int mapHeight = 820;
 
 	public static int Acceleration = 1;
+	public static double mutationRate = 50;
 	private boolean stop =false;
 
 	private JFrame controller = new JFrame();
@@ -15,10 +17,14 @@ public class Controller extends JFrame {
 	private JTabbedPane tab;
 	private JPanel panel1;
 	private JPanel panel2;
+	private JPanel panel3;
 	private JSlider slider1;
 	private JSlider slider2;
 	private JButton bt1;
 	private JButton bt2;
+	private JButton bt3;
+	private JLabel label5;
+	private JLabel label6;
 	Controller() {
 		controller.setTitle("Controller");
 		controller.setSize(384, mapHeight);
@@ -26,6 +32,7 @@ public class Controller extends JFrame {
 		controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		controller.setVisible(true);
 		controller.setResizable(false);
+
 		masterpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,5));
 		tab = new JTabbedPane();
 		tab.setPreferredSize(new Dimension(370,720));
@@ -33,11 +40,12 @@ public class Controller extends JFrame {
 		CreateMasterPanel();
 		CreateAboutPanel();
 		CreateControllerPanel();
+		CreateGeneticPanel();
 
 		masterpanel.add(tab);
 		masterpanel.add(bt2);
 		masterpanel.add(bt1);
-
+		masterpanel.add(bt3);
 		controller.add(masterpanel);
 	}
 	void CreateMasterPanel() {
@@ -48,23 +56,25 @@ public class Controller extends JFrame {
 
 		bt1 = new JButton(displayImage1);
 		bt2 = new JButton(displayImage2);
+		bt3=new JButton("ㅁ");
 		bt1.addActionListener(new bt1ActionListener());
 		bt2.addActionListener(new bt2ActionListener());
+		bt3.addActionListener(new bt3ActionListener());
 		bt1.setBorderPainted(false);
 		bt2.setBorderPainted(false);
 		bt1.setContentAreaFilled(false);
 		bt2.setContentAreaFilled(false);
 	}
 	void CreateAboutPanel() {
-		panel2=new JPanel();
+		panel1=new JPanel();
 
 		JTextArea textarea = new JTextArea("text", 19, 14);
 		textarea.setPreferredSize(new Dimension(364,690));
 		textarea.setFont(new Font(null, Font.BOLD, 20));
 		textarea.setEditable(false);
 
-		panel2.add(textarea);
-		tab.add("About",panel2);
+		panel1.add(textarea);
+		tab.add("  About  ",panel1);
 	}
 	void CreateControllerPanel() {
 		panel2=new JPanel();
@@ -86,57 +96,56 @@ public class Controller extends JFrame {
 		label4.setFont(new Font(null, Font.HANGING_BASELINE, 13));
 		label4.setBounds(10, 350, 150, 100);
 
-		JLabel label5=new JLabel("            Variant rate:");
-		label5.setFont(new Font(null, Font.HANGING_BASELINE, 13));
-		label5.setBounds(10, 450, 150, 100);
-
-		slider1=new JSlider(JSlider.HORIZONTAL,1,51,1);
-		slider1.addChangeListener(new MyChangeListener());
-		slider1.setMinorTickSpacing(1);
-		slider1.setMajorTickSpacing(10);
-		slider1.setPaintTicks(true);
-		slider1.setPaintLabels(true);
-		slider1.setBounds(150, 90, 200, 50);
+		slider1=new JSlider(JSlider.HORIZONTAL,1,50,1);
+		slider1.addChangeListener(new Slider1ChangeListener());
+		slider1.setBounds(150, 75, 200, 50);
+		label5=new JLabel("X1");
+		label5.setBounds(230, 90, 50, 50);
 
 		JTextField textfield1=new JTextField("50");
 		textfield1.setHorizontalAlignment(JTextField.CENTER);
-		textfield1.setBounds(200, 190, 100, 25);
+		textfield1.setBounds(150, 190, 150, 20);
 
 		JTextField textfield2=new JTextField("4");
 		textfield2.setHorizontalAlignment(JTextField.CENTER);
-		textfield2.setBounds(200, 290, 100, 25);
+		textfield2.setBounds(150, 290, 150, 20);
 
-		JSlider slider2=new JSlider(JSlider.HORIZONTAL,1,5001,100);
-		slider2.setFont(new Font(null, Font.HANGING_BASELINE, 8));
-		slider2.setMinorTickSpacing(10);
-		slider2.setMajorTickSpacing(500);
-		slider2.setPaintTicks(true);
-		slider2.setPaintLabels(true);
-		slider2.setBounds(150, 390, 200, 50);
+		label6=new JLabel("50%");
+		label6.setBounds(230, 390, 100, 50);
+		slider2=new JSlider(JSlider.HORIZONTAL,1,50000,50000);
+		slider2.addChangeListener(new Slider2ChangeListener());
+		slider2.setBounds(150, 375, 200, 50);
 
-		JSlider slider3=new JSlider(JSlider.HORIZONTAL,1,11,1);
-		slider3.setMinorTickSpacing(1);
-		slider3.setMajorTickSpacing(5);
-		slider3.setPaintTicks(true);
-		slider3.setPaintLabels(true);
-		slider3.setBounds(150, 490, 200, 50);
 
 		panel2.add(label1);
 		panel2.add(label2);
 		panel2.add(label3);
 		panel2.add(label4);
 		panel2.add(label5);
+		panel2.add(label6);
 		panel2.add(textfield1);
 		panel2.add(textfield2);
 		panel2.add(slider1);
 		panel2.add(slider2);
-		panel2.add(slider3);
 
-		tab.add("Controller",panel2);
+		tab.add("  Controller  ",panel2);
 	}
-	class MyChangeListener implements ChangeListener{
+	void CreateGeneticPanel() {
+		panel3= new JPanel();
+
+
+		tab.add("  Gene  ",panel3);
+	}
+	private class Slider1ChangeListener implements ChangeListener{
 		public void stateChanged(ChangeEvent e) {
+			label5.setText("X"+slider1.getValue());
 			if(!stop) Acceleration =slider1.getValue();
+		}
+	}
+	private class Slider2ChangeListener implements ChangeListener{
+		public void stateChanged(ChangeEvent e) {
+			label6.setText(Double.toString(((double)slider2.getValue())/1000)+"%");
+			mutationRate = ((double)slider2.getValue())/1000;
 		}
 	}
 	private class bt1ActionListener implements ActionListener {
@@ -145,11 +154,15 @@ public class Controller extends JFrame {
 			Acceleration = slider1.getValue();
 		}
 	}
-
 	private class bt2ActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			stop=true;
 			Acceleration = 0;
+		}
+	}
+	private class bt3ActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			simulation.reset();
 		}
 	}
 }
