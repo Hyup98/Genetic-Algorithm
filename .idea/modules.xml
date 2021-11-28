@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Genetic Algorithm simulation/Genetic Algorithm simulation.iml" filepath="$PROJECT_DIR$/Genetic Algorithm simulation/Genetic Algorithm simulation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/java_Team.iml" filepath="$PROJECT_DIR$/.idea/java_Team.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GeneticAlgorithm.iml" filepath="$PROJECT_DIR$/GeneticAlgorithm.iml" />
     </modules>
   </component>
 </project>
